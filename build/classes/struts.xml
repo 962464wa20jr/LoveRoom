@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="GBK"?>
+<!-- 指定Struts2配置文件的DTD信息 -->
+<!DOCTYPE struts PUBLIC
+	"-//Apache Software Foundation//DTD Struts Configuration 2.3//EN"
+	"http://struts.apache.org/dtds/struts-2.3.dtd">
+<!-- Struts2配置文件的根元素 -->
+<struts>
+	<!-- 配置了系列常量 -->
+	<constant name="struts.custom.i18n.resources" value="resource"/>
+	<constant name="struts.i18n.encoding" value="GBK"/>
+	<constant name="struts.devMode" value="true"/>
+	<package name="default" extends="struts-default">
+	 <interceptors>
+	   <!-- 拦截器 -->
+	    <interceptor name="userAuth" class="org.weinan.loveroom.actionAuthority.UserActionInterceptor"/>
+	   <!-- 配置拦截器栈 -->
+	    <interceptor-stack name="userStack">
+	     <interceptor-ref name="defaultStack"/>
+	     <interceptor-ref name="userAuth"/>
+	    </interceptor-stack>	   
+     </interceptors>
+     <action name="logout" class="org.weinan.loveroom.action.LogOutAction">
+       <result>/WEB-INF/Content/login.jsp</result>
+     </action>
+     <action name="login" class="loginAction">
+      <result name="input">/WEB-INF/Content/error.jsp</result>
+      <result name="success" type="redirectAction">main</result>
+      <result name="error">/WEB-INF/Content/login.jsp</result>
+     </action>
+     <action name="viewPicture" class="org.weinan.loveroom.action.ViewPictureAction">
+       <result name="success">/WEB-INF/Content/viewPicture.jsp</result>
+       <result name="error">/WEB-INF/Content/error.jsp</result>
+     </action>
+     <action name="addMessage" class="addMessageAction">
+      <result name="input">/WEB-INF/Content/error.jsp</result>
+      <result name="success" type="redirectAction">viewMessage</result>
+     </action>
+     <action name="viewMessage" class="viewMessageAction">
+      <result name="input">/WEB-INF/Content/error.jsp</result>
+      <result name="success">/WEB-INF/Content/viewLmss.jsp</result>
+     </action>
+     <action name="main" class="mainAction"> 
+      <result name="input">/WEB-INF/Content/error.jsp</result>
+      <result name="success">/WEB-INF/Content/main.jsp</result>
+     </action>
+     <action name="editDocument" class="org.weinan.loveroom.action.EditDocumentAction">
+      <result name="input">/WEB-INF/Content/error.jsp</result>
+      <result name="success">/WEB-INF/Content/addDocument.jsp</result>
+     </action>
+     <action name="addDocument" class="addDocumentAction">
+      <result name="input">/WEB-INF/Content/error.jsp</result>
+      <result name="success" type="redirectAction">viewDocument</result>
+     </action>
+     <action name="viewDocument" class="viewDocumentAction">
+      <result name="input">/WEB-INF/Content/error.jsp</result>
+      <result name="success">/WEB-INF/Content/viewDocument.jsp</result>
+     </action>
+     </package>
+     </struts>
+ 
